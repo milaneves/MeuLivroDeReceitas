@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\MyRecipeBook.Comunication\MyRecipeBook.Comunication.csproj" />
+    <ProjectReference Include="..\..\shared\MyRecipeBook.Exception\MyRecipeBook.Exception.csproj" />
+    <ProjectReference Include="..\MyRecipeBook.Application\MyRecipeBook.Application.csproj" />
+  </ItemGroup>
+
+</Project>
