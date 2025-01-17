@@ -61,7 +61,16 @@ namespace MyRecipeBook.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The emial is invalid.
+        ///   Looks up a localized string similar to The Email cannot be empty.
+        /// </summary>
+        public static string EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email is invalid.
         /// </summary>
         public static string EMAIL_INVALID {
             get {
@@ -84,6 +93,15 @@ namespace MyRecipeBook.Exception {
         public static string PASSWORD_EMPTY {
             get {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error.
+        /// </summary>
+        public static string UNKNOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
             }
         }
     }
