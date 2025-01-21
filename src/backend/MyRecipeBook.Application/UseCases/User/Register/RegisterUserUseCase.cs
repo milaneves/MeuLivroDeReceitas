@@ -1,16 +1,35 @@
-﻿using MyRecipeBook.Exception.ExceptionBase;
+﻿
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
-public class RegisterUserUseCase
+public interface IRegisterUserUseCase : IUseCaseWithRequest<RequestRegisterUserJson> { }
+
+public sealed class RegisterUserUseCase : IRegisterUserUseCase
 {
-    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
+    private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
+
+    public RegisterUserUseCase(IUserRepository userRepository, IMapper mapper)
     {
+        _userRepository = userRepository;
+        _mapper = mapper;
+    }
+
+    public async Task Execute(RequestRegisterUserJson request, CancellationToken cancellationToken)
+    {
+       
+        var passwordCriptography = new PasswordEncripter();
+
         Validate(request);
-        return new ResponseRegisteredUserJson
-        {
-            Name = request.Name
-        };
+
+        var user = _mapper.Map<Domain.Entities.User>(request);
+        user.Password = passwordCriptography.Encrypt(request.Password);
+
+        await _userRepository.Add(user, cancellationToken);
+        //return new ResponseRegisteredUserJson
+        //{
+        //    Name = request.Name
+        //};
     }
 
     private void Validate(RequestRegisterUserJson request)

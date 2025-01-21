@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Comunication",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Exception", "src\shared\MyRecipeBook.Exception\MyRecipeBook.Exception.csproj", "{1C26BBBB-3691-4449-92CC-446C3311160D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRecipeBook.Core", "src\backend\MyRecipeBook.Core\MyRecipeBook.Core.csproj", "{ED2BFE50-8032-4293-8CC8-63890B4EB607}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{1C26BBBB-3691-4449-92CC-446C3311160D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C26BBBB-3691-4449-92CC-446C3311160D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C26BBBB-3691-4449-92CC-446C3311160D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2BFE50-8032-4293-8CC8-63890B4EB607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2BFE50-8032-4293-8CC8-63890B4EB607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2BFE50-8032-4293-8CC8-63890B4EB607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2BFE50-8032-4293-8CC8-63890B4EB607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
