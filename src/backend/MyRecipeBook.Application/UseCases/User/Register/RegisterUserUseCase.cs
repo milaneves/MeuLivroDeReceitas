@@ -1,35 +1,44 @@
 ﻿
 
+using MyRecipeBook.Domain.Repositories;
+
 namespace MyRecipeBook.Application.UseCases.User.Register;
 
-public interface IRegisterUserUseCase : IUseCaseWithRequest<RequestRegisterUserJson> { }
+public interface IRegisterUserUseCase : IUseCase<RequestRegisterUserJson, ResponseRegisteredUserJson> { }
 
 public sealed class RegisterUserUseCase : IRegisterUserUseCase
 {
-    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private IUnitOfWork _unitOfWork;
+    private readonly IUserRepository _userRepository;
+    private readonly PasswordEncripter _passwordEncripter;
 
-    public RegisterUserUseCase(IUserRepository userRepository, IMapper mapper)
+    public RegisterUserUseCase(
+        IMapper mapper, 
+        IUnitOfWork unitOfWork,
+        IUserRepository userRepository, 
+        PasswordEncripter passwordEncripter)
     {
-        _userRepository = userRepository;
         _mapper = mapper;
+        _unitOfWork = unitOfWork;
+        _userRepository = userRepository;
+        _passwordEncripter = passwordEncripter;
     }
 
-    public async Task Execute(RequestRegisterUserJson request, CancellationToken cancellationToken)
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request, CancellationToken cancellationToken)
     {
-       
-        var passwordCriptography = new PasswordEncripter();
-
         Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        user.Password = passwordCriptography.Encrypt(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);
 
         await _userRepository.Add(user, cancellationToken);
-        //return new ResponseRegisteredUserJson
-        //{
-        //    Name = request.Name
-        //};
+
+        await _unitOfWork.Commit();
+        return new ResponseRegisteredUserJson
+        {
+            Name = request.Name
+        };
     }
 
     private void Validate(RequestRegisterUserJson request)

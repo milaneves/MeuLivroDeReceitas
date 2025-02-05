@@ -11,7 +11,10 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
         public UserRepository(MyRecipeBookDbContext dbContext) => _dbContext = dbContext;
 
         public async Task Add(User user, CancellationToken cancellationToken)
-            => await _dbContext.Users.AddAsync(user, cancellationToken);
+        {
+            await _dbContext.Users.AddAsync(user, cancellationToken);
+            await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<bool> ExistActiveUserWithEmail(string email, CancellationToken cancellationToken)
             => await _dbContext.Users.AnyAsync(user => user.Email.Equals(email) && 

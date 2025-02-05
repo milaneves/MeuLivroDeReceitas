@@ -9,11 +9,12 @@ namespace MyRecipeBook.Application
         {
             AutoMapper(services);
             AddUseCases(services);
+            AddPasswordEncripter(services);
         }
 
         private static void AutoMapper(IServiceCollection services)
         {
-            services.AddScoped(option => new AutoMapper.MapperConfiguration(options =>
+            services.AddScoped(option => new MapperConfiguration(options =>
             {
                 options.AddProfile(new AutoMapping());
             }).CreateMapper());
@@ -22,6 +23,11 @@ namespace MyRecipeBook.Application
         private static void AddUseCases(IServiceCollection services)
         {
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        }
+
+        private static void AddPasswordEncripter(IServiceCollection services)
+        {
+            services.AddScoped(option => new PasswordEncripter());
         }
     }
 }
