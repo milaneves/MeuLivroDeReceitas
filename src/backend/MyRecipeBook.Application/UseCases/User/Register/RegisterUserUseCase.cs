@@ -24,7 +24,7 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
         _passwordEncripter = passwordEncripter;
     }
 
-    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request, CancellationToken cancellationToken)
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request, CancellationToken cancellationToken = default)
     {
         await Validate(request, cancellationToken);
 
@@ -36,7 +36,7 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
         await _unitOfWork.Commit();
         return new ResponseRegisteredUserJson
         {
-            Name = request.Name
+            Name = user.Name
         };
     }
 

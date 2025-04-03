@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Bogus" Version="35.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\backend\MyRecipeBook.Application\MyRecipeBook.Application.csproj" />
     <ProjectReference Include="..\..\src\shared\MyRecipeBook.Comunication\MyRecipeBook.Comunication.csproj" />
   </ItemGroup>
 
