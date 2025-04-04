@@ -26,7 +26,7 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request, CancellationToken cancellationToken = default)
     {
-        await Validate(request, cancellationToken);
+        await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
         user.Password = _passwordEncripter.Encrypt(request.Password);
@@ -40,15 +40,15 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
         };
     }
 
-    private async Task Validate(RequestRegisterUserJson request, CancellationToken cancelationToken)
+    private async Task Validate(RequestRegisterUserJson request)
     {
         var validator = new RegisterUserValidator();
         var result = validator.Validate(request);
 
-        var emailExist = await _userRepository.ExistActiveUserWithEmail(request.Email, cancelationToken);
+        var emailExist = await _userRepository.ExistActiveUserWithEmail(request.Email);
 
         if (emailExist)
-            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessageException.EMAIL_ALREADY_REGISTERED));
+            result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
 
         if (!result.IsValid)
         {

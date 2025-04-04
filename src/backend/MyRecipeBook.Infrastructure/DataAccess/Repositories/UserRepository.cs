@@ -16,9 +16,9 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistActiveUserWithEmail(string email, CancellationToken cancellationToken)
+        public async Task<bool> ExistActiveUserWithEmail(string email)
             => await _dbContext.Users.AnyAsync(user => user.Email.Equals(email) && 
-            user.Active, cancellationToken);
+            user.Active);
  
     }
 }
