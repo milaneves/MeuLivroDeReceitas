@@ -1,6 +1,9 @@
 ﻿using CommonTestUtilities.Requests;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Shouldly;
+using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace WebApi.Test.User.Register
 {
@@ -16,7 +19,15 @@ namespace WebApi.Test.User.Register
         {
             var request = RequestRegisterUserJsonBuilder.Build();
             var httplClient = new HttpClient();
-            await httplClient.PostAsJsonAsync("User", request);
+            
+            var response =  await httplClient.PostAsJsonAsync("User", request);
+            
+            response.ShouldBeNull();
+            response.StatusCode.ShouldBe(HttpStatusCode.Created);
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+            responseData.RootElement.GetProperty("name").GetString().ShouldNotBeNullOrWhiteSpace();
+                //ShouldBe(request.Name);
         }
     }
 }
