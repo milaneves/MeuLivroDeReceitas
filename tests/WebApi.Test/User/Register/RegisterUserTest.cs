@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace WebApi.Test.User.Register
 {
-    public class RegisterUserTest : IClassFixture<WebApplicationFactory<Program>>
+    public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _httpClient;
 
-        public RegisterUserTest(WebApplicationFactory<Program> factory) 
+        public RegisterUserTest(CustomWebApplicationFactory factory) 
             => _httpClient = factory.CreateClient();
 
         [Fact]
@@ -20,14 +20,12 @@ namespace WebApi.Test.User.Register
             var request = RequestRegisterUserJsonBuilder.Build();
             var httplClient = new HttpClient();
             
-            var response =  await httplClient.PostAsJsonAsync("User", request);
+            var response =  await _httpClient.PostAsJsonAsync("User", request);
             
-            response.ShouldBeNull();
             response.StatusCode.ShouldBe(HttpStatusCode.Created);
             await using var responseBody = await response.Content.ReadAsStreamAsync();
             var responseData = await JsonDocument.ParseAsync(responseBody);
             responseData.RootElement.GetProperty("name").GetString().ShouldNotBeNullOrWhiteSpace();
-                //ShouldBe(request.Name);
         }
     }
 }

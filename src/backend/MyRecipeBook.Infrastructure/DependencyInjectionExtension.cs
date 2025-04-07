@@ -1,5 +1,6 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
+using MyRecipeBook.Infrastructure.Extensions;
 using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
@@ -8,8 +9,12 @@ namespace MyRecipeBook.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddDbContext(services, configuration);
             AddRepositories(services); ;
+
+            if (configuration.IsUnitTestEnviroment())
+                return;
+
+            AddDbContext(services, configuration);
             AddFluentMigrator(services, configuration);
         }
 
