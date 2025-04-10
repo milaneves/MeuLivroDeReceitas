@@ -1,13 +1,4 @@
-﻿using CommonTestUtilities.Requests;
-using MyRecipeBook.Exception;
-using Shouldly;
-using System.Globalization;
-using System.Net;
-using System.Net.Http.Json;
-using System.Text.Json;
-using WebApi.Test.InlineData;
-
-namespace WebApi.Test.User.Register
+﻿namespace WebApi.Test.User.Register
 {
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
