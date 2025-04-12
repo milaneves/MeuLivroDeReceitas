@@ -2,6 +2,7 @@
 {
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
+        private readonly string method = "user";
         private readonly HttpClient _httpClient;
 
         public RegisterUserTest(CustomWebApplicationFactory factory) 
@@ -13,7 +14,7 @@
             var request = RequestRegisterUserJsonBuilder.Build();
             var httplClient = new HttpClient();
             
-            var response =  await _httpClient.PostAsJsonAsync("User", request);
+            var response =  await _httpClient.PostAsJsonAsync(method, request);
             
             response.StatusCode.ShouldBe(HttpStatusCode.Created);
             await using var responseBody = await response.Content.ReadAsStreamAsync();
@@ -31,7 +32,7 @@
                 _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
 
             _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(method, request);
 
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
