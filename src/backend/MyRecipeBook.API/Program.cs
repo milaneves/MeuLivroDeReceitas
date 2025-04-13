@@ -1,10 +1,10 @@
-using MyRecipeBook.API.Controllers.Filters;
 using MyRecipeBook.API.Middleware;
 using MyRecipeBook.Application;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure;
 using MyRecipeBook.Infrastructure.Migrations;
 using MyRecipeBook.API.Converters;
+using MyRecipeBook.API.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
