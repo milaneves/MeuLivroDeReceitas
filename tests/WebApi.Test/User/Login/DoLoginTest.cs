@@ -2,17 +2,15 @@
 
 namespace WebApi.Test.User.Login
 {
-    public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
+    public class DoLoginTest : MyRecipeBookClassFixture
     {
         private readonly string method = "login";
-        private readonly HttpClient _httpClient;
         private readonly string _email;
         private readonly string _password;
         private readonly string _name;
 
-        public DoLoginTest(CustomWebApplicationFactory factory)
+        public DoLoginTest(CustomWebApplicationFactory factory) : base(factory)
         {
-            _httpClient = factory.CreateClient();
             _email = factory.GetEmail();
             _password = factory.GetPassowrd();
             _name = factory.GetName();
@@ -27,7 +25,7 @@ namespace WebApi.Test.User.Login
                 Password = _password
             };
 
-            var response = await _httpClient.PostAsJsonAsync(method, request);
+            var response = await DoPost(method, request);
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -43,11 +41,7 @@ namespace WebApi.Test.User.Login
         {
             var request = RequestLoginJsonBuilder.Build();
 
-            if (_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
-                _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
-
-            _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
-            var response = await _httpClient.PostAsJsonAsync(method, request);
+            var response = await DoPost(method, request, culture);
 
             response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
 
