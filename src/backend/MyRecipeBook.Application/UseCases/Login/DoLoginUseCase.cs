@@ -18,7 +18,10 @@ namespace MyRecipeBook.Application.UseCases.Login
         {
             var encriptedPassword = _passwordEncripter.Encrypt(request.Password);
             var user = await _userRepository
-                .GetByEmailAndPassword(request.Email, encriptedPassword) ?? throw new InvalidOperationException();
+                .GetByEmailAndPassword(request.Email, encriptedPassword);
+                
+            if(user is null)
+                throw new InvalidLoginException();
 
             return new ResponseRegisteredUserJson
             {

@@ -43,7 +43,6 @@
 
             errors.ShouldBeUnique();
             errors.ShouldContain(error => error.GetString()!.Equals(expectedMessage));
-
         }
     }
 }
