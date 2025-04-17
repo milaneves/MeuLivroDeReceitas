@@ -1,6 +1,8 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
@@ -15,6 +17,7 @@ namespace MyRecipeBook.Infrastructure
                 return;
 
             AddDbContext(services, configuration);
+            AddTokens(services, configuration);
             AddFluentMigrator(services, configuration);
         }
 
@@ -43,6 +46,13 @@ namespace MyRecipeBook.Infrastructure
                 .WithGlobalConnectionString(connectionString)
                 .ScanIn(Assembly.Load("MyRecipeBook.Infrastructure")).For.All();
             });
+        }
+
+        private static void AddTokens(IServiceCollection services, IConfiguration configuration)
+        {
+            var espirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+            var signingKey = configuration.GetValue<string>("Settings:Jwt:SingningKey");
+            services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(espirationTimeMinutes, signingKey!));
         }
     }
 }

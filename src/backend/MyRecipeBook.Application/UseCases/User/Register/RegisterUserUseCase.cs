@@ -1,4 +1,5 @@
 ﻿using MyRecipeBook.Domain.Repositories;
+using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exception;
 
 namespace MyRecipeBook.Application.UseCases.User.Register;
@@ -11,17 +12,21 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
     private IUnitOfWork _unitOfWork;
     private readonly IUserRepository _userRepository;
     private readonly PasswordEncripter _passwordEncripter;
+    private readonly IAccessTokenGenerator _accessTokenGenerator;
+
 
     public RegisterUserUseCase(
         IMapper mapper, 
         IUnitOfWork unitOfWork,
         IUserRepository userRepository, 
-        PasswordEncripter passwordEncripter)
+        PasswordEncripter passwordEncripter,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _userRepository = userRepository;
         _passwordEncripter = passwordEncripter;
+        _accessTokenGenerator = accessTokenGenerator;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request, CancellationToken cancellationToken = default)
@@ -30,13 +35,18 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
 
         var user = _mapper.Map<Domain.Entities.User>(request);
         user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.UserIdentifier = Guid.NewGuid();
 
         await _userRepository.Add(user, cancellationToken);
 
         await _unitOfWork.Commit();
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokenJson
+            {
+                AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier)
+            }
         };
     }
 

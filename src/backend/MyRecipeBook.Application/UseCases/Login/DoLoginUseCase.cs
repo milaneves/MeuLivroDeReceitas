@@ -1,4 +1,6 @@
 ﻿
+using MyRecipeBook.Domain.Security.Tokens;
+
 namespace MyRecipeBook.Application.UseCases.Login
 {
     public interface IDoLoginUseCase : IUseCase<RequestLoginJson, ResponseRegisteredUserJson> { }
@@ -7,11 +9,16 @@ namespace MyRecipeBook.Application.UseCases.Login
     {
         private readonly IUserRepository _userRepository;
         private readonly PasswordEncripter _passwordEncripter;
+        private readonly IAccessTokenGenerator _accessTokenGenerator;
 
-        public DoLoginUseCase(IUserRepository userRepository, PasswordEncripter passwordEncripter)
+        public DoLoginUseCase(IUserRepository userRepository, 
+            PasswordEncripter passwordEncripter,
+            IAccessTokenGenerator accessTokenGenerator
+            )
         {
             _userRepository = userRepository;
             _passwordEncripter = passwordEncripter;
+            _accessTokenGenerator = accessTokenGenerator;
         }
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request, CancellationToken cancellation = default)
@@ -26,6 +33,10 @@ namespace MyRecipeBook.Application.UseCases.Login
             return new ResponseRegisteredUserJson
             {
                 Name = user.Name,
+                Tokens = new ResponseTokenJson
+                {
+                    AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier)
+                }
             };
         }
     }
