@@ -28,6 +28,7 @@
             request.Name = string.Empty;
             var response = await DoPost(method, request, culture);
 
+
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();

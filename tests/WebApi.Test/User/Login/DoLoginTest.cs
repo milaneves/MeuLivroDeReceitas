@@ -4,7 +4,7 @@ namespace WebApi.Test.User.Login
 {
     public class DoLoginTest : MyRecipeBookClassFixture
     {
-        private readonly string method = "login";
+        private readonly string method = "Login";
         private readonly string _email;
         private readonly string _password;
         private readonly string _name;

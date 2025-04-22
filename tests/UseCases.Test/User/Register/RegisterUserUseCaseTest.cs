@@ -1,4 +1,6 @@
-﻿namespace UseCases.Test.User.Register
+﻿using CommonTestUtilities.Tokens;
+
+namespace UseCases.Test.User.Register
 {
     public class RegisterUserUseCaseTest
     {
@@ -20,11 +22,12 @@
             var passwordEncripter = PasswordEncripterBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
             var userRepository = new UserRepositoryBuilder().Build();
-           
+            var accessToKenGenerator = JwtTokenGeneratorBuilder.Build();
+
             if (string.IsNullOrEmpty(email) == false)
                 userRepository.ExistActiveUserWithEmail(email);
 
-            return new RegisterUserUseCase(mapper, unitOfWork, userRepository, passwordEncripter);
+            return new RegisterUserUseCase(mapper, unitOfWork, userRepository, passwordEncripter, accessToKenGenerator);
         }
     }
 }

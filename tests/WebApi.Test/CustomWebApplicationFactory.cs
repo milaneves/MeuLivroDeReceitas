@@ -1,6 +1,4 @@
 ﻿using CommonTestUtilities.Entities;
-using Microsoft.EntityFrameworkCore;
-
 namespace WebApi.Test
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>

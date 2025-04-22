@@ -9,7 +9,9 @@
         protected async Task<HttpResponseMessage> DoPost(string method, object request, string culture = "en")
         {
             ChangeRequestCulture(culture);
-            return await _httpClient.PostAsJsonAsync(method, request);
+            var teste =  await _httpClient.PostAsJsonAsync(method, request);
+            var t =  teste.Content.ReadAsStreamAsync();
+            return teste;
         }
 
         private void ChangeRequestCulture(string culture)
