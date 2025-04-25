@@ -6,16 +6,16 @@ using System.Text;
 
 namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
 {
-    public class JwtTokenGenerator : IAccessTokenGenerator
+    public class JwtTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
     {
 
         private readonly uint _expirationTimeMinutes;
-        private readonly string _singinKey;
+        private readonly string _signingKey;
 
-        public JwtTokenGenerator(uint expirationTimeMinutes, string singinKey)
+        public JwtTokenGenerator(uint expirationTimeMinutes, string _signingKey)
         {
             _expirationTimeMinutes = expirationTimeMinutes;
-            _singinKey = singinKey;
+            _signingKey = _signingKey;
         }
 
         public string Generate(Guid userIdentifier)
@@ -29,18 +29,12 @@ namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-                SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(SecurityKey(_signingKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(securityToken);
-        }
-
-        private SymmetricSecurityKey SecurityKey()
-        {
-            var bytes = Encoding.UTF8.GetBytes(_singinKey);
-            return new SymmetricSecurityKey(bytes);
         }
     }
 }

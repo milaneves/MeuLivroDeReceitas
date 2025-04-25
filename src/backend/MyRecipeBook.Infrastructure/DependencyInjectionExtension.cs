@@ -53,6 +53,7 @@ namespace MyRecipeBook.Infrastructure
             var espirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
             var signingKey = configuration.GetValue<string>("Settings:Jwt:SingningKey");
             services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(espirationTimeMinutes, signingKey!));
+            services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
         }
     }
 }
