@@ -1,7 +1,9 @@
-﻿using MyRecipeBook.Application.UseCases.User.Register;
+﻿using MyRecipeBook.API.Atributes;
+using MyRecipeBook.Application.UseCases.User.Register;
 
 namespace MyRecipeBook.API.Controllers
 {
+    [AuthenticatedUser]
     public class UserController : MyRecipeBookBaseController
     {
         [HttpPost]

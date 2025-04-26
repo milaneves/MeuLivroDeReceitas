@@ -2,8 +2,9 @@
 {
     public interface IUserRepository
     {
-        public Task<bool> ExistActiveUserWithEmail(string email);
-        public Task<Entities.User?> GetByEmailAndPassword(string email, string password);
-        public Task Add(Entities.User user, CancellationToken cancellationToken);
+        Task<bool> ExistActiveUserWithEmail(string email);
+        Task<Entities.User?> GetByEmailAndPassword(string email, string password);
+        Task Add(Entities.User user, CancellationToken cancellationToken);
+        Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier);
     }
 }
