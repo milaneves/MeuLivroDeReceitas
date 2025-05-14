@@ -1,8 +1,11 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
+using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
+using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using System.Reflection;
 
 namespace MyRecipeBook.Infrastructure
@@ -11,7 +14,8 @@ namespace MyRecipeBook.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddRepositories(services); ;
+            AddRepositories(services);
+            AddLoggedUser(services);
 
             if (configuration.IsUnitTestEnviroment())
                 return;
@@ -55,5 +59,7 @@ namespace MyRecipeBook.Infrastructure
             services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(espirationTimeMinutes, signingKey!));
             services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
         }
+
+        private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
     }
 }
