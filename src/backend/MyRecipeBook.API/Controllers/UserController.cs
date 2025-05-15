@@ -1,4 +1,5 @@
 ﻿using MyRecipeBook.API.Atributes;
+using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
 
 namespace MyRecipeBook.API.Controllers
@@ -14,6 +15,16 @@ namespace MyRecipeBook.API.Controllers
         { 
             var result = await useCase.Execute(request);
             return Created(string.Empty, result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+        [AuthenticatedUser]
+        public async Task<IActionResult> GetUserProfile(
+        [FromServices] IGetUserProfileUseCase useCase)
+        {
+            var result = await useCase.Execute();
+            return Ok(result);
         }
     }
 }
