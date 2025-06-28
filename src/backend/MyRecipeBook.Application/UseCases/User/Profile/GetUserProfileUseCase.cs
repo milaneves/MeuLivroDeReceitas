@@ -15,11 +15,10 @@ namespace MyRecipeBook.Application.UseCases.User.Profile
             _mapper = mapper;
         }
 
-        public async Task<ResponseUserProfileJson> Execute(CancellationToken cancellation)
+        public async Task<ResponseUserProfileJson> Execute(CancellationToken cancellation = default)
         {
             var user = await _loggedUser.User();
             return _mapper.Map<ResponseUserProfileJson>(user);
-
         }
     }
 }

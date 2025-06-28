@@ -34,6 +34,7 @@ namespace WebApi.Test
         public string GetEmail() => _user.Email;
         public string GetPassowrd() => _password;
         public string GetName() => _user.Name;
+        public Guid GetUserIdentifier() => _user.UserIdentifier;
 
         private void StartDatabase(MyRecipeBookDbContext dbContext)
         {

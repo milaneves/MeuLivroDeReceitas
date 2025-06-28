@@ -30,5 +30,14 @@ namespace MyRecipeBook.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync(user => user.Active && user.Email.Equals(email)
                     && user.Password.Equals(password));  
         }
+
+        public async Task<User> GetById(long id)
+        {
+            return await _dbContext.Users.FirstAsync(user => user.Id == id);
+        }
+
+        public void Update(User user)
+            => _dbContext.Users.Update(user);
+
     }
 }
