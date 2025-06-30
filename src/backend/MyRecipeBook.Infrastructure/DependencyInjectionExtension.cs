@@ -1,8 +1,10 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
@@ -14,6 +16,7 @@ namespace MyRecipeBook.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            AddPasswordEncripter(services, configuration);
             AddRepositories(services);
             AddLoggedUser(services);
 
@@ -61,5 +64,11 @@ namespace MyRecipeBook.Infrastructure
         }
 
         private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
+
+        private static void AddPasswordEncripter(IServiceCollection services, IConfiguration configuration)
+        {
+            var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
+            services.AddScoped<IPasswordEncripter>(option => new Sha512Encripter(additionalKey!));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MyRecipeBook.Domain.Repositories;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exception;
 
@@ -11,15 +12,15 @@ public sealed class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IMapper _mapper;
     private IUnitOfWork _unitOfWork;
     private readonly IUserRepository _userRepository;
-    private readonly PasswordEncripter _passwordEncripter;
+    private readonly IPasswordEncripter _passwordEncripter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
 
 
     public RegisterUserUseCase(
         IMapper mapper, 
         IUnitOfWork unitOfWork,
-        IUserRepository userRepository, 
-        PasswordEncripter passwordEncripter,
+        IUserRepository userRepository,
+        IPasswordEncripter passwordEncripter,
         IAccessTokenGenerator accessTokenGenerator)
     {
         _mapper = mapper;

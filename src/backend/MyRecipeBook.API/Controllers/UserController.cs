@@ -1,6 +1,7 @@
 ﻿using MyRecipeBook.API.Atributes;
 using MyRecipeBook.Application.UseCases.User.Profile;
 using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Application.UseCases.User.Update;
 
 namespace MyRecipeBook.API.Controllers
 {
@@ -35,7 +36,7 @@ namespace MyRecipeBook.API.Controllers
             [FromServices] IUpdateUserUseCase useCase,
             [FromBody] RequestUpdateUserJson request)
         {
-            var result = await useCase.Execute();
+            await useCase.Execute(request);
             return NoContent();
         }
     }

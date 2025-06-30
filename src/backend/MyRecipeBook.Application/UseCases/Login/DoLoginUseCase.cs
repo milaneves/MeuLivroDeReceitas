@@ -1,4 +1,4 @@
-﻿
+﻿using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 
 namespace MyRecipeBook.Application.UseCases.Login
@@ -8,11 +8,11 @@ namespace MyRecipeBook.Application.UseCases.Login
     public sealed class DoLoginUseCase : IDoLoginUseCase
     {
         private readonly IUserRepository _userRepository;
-        private readonly PasswordEncripter _passwordEncripter;
+        private readonly IPasswordEncripter _passwordEncripter;
         private readonly IAccessTokenGenerator _accessTokenGenerator;
 
         public DoLoginUseCase(IUserRepository userRepository, 
-            PasswordEncripter passwordEncripter,
+            IPasswordEncripter passwordEncripter,
             IAccessTokenGenerator accessTokenGenerator
             )
         {
