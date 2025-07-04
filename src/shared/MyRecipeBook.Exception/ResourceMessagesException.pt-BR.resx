@@ -135,6 +135,12 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>O Token não pode está vazio</value>
   </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>Senhas diferentes</value>
+  </data>
+  <data name="PASSWORD_EMPTY" xml:space="preserve">
+    <value>Senha vazia</value>
+  </data>
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>A senha deve ter mais de 6 caracteres</value>
   </data>
