@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AT_LEAST_ONE_INGREDIENT" xml:space="preserve">
+    <value>Adicione pelo ao menos um ingrediente</value>
+  </data>
+  <data name="AT_LEAST_ONE_INSTRUCTIONS" xml:space="preserve">
+    <value>Adicione pelo ao menos uma instrução</value>
+  </data>
+  <data name="COOKING_TIME_NOT_SUPPORTED" xml:space="preserve">
+    <value>Tempo de cozimento  não suportado</value>
+  </data>
+  <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
+    <value>Nivel de dificuldade não suportado</value>
+  </data>
+  <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
+    <value>Tipo de prato não suportado</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>E-mail já registrado</value>
   </data>
   <data name="EMAIL_EMPTY" xml:space="preserve">
-    <value>O Emial não pode está vazio</value>
+    <value>O Emial não pode estar vazio</value>
   </data>
   <data name="EMAIL_INVALID" xml:space="preserve">
     <value>O e-mail é inválido</value>
@@ -129,11 +144,23 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>E-mail e/ou senha inválidos</value>
   </data>
+  <data name="INGREDIENT_EMPTY" xml:space="preserve">
+    <value>Ingrediente não pode ser vazio</value>
+  </data>
+  <data name="INSTRUCTION_EMPTY" xml:space="preserve">
+    <value>A instrução não pode ser vazia</value>
+  </data>
+  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
+    <value>A instrução excede o limite de caracteres </value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
-    <value>O nome não pode está vazio.</value>
+    <value>O nome não pode estar vazio.</value>
+  </data>
+  <data name="NON_NEGATIVE_INSTRUCTION_STEP" xml:space="preserve">
+    <value>O passo de instrução não dever ser negativo</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
-    <value>O Token não pode está vazio</value>
+    <value>O Token não pode estar vazio</value>
   </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
     <value>Senhas diferentes</value>
@@ -143,6 +170,12 @@
   </data>
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>A senha deve ter mais de 6 caracteres</value>
+  </data>
+  <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
+    <value>O Título da receita não pode estar vazio</value>
+  </data>
+  <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
+    <value>Duas ou mais instruções na mesma ordem</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
