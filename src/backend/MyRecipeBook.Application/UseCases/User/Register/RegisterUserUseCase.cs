@@ -10,7 +10,7 @@ public interface IRegisterUserUseCase : IUseCase<RequestRegisterUserJson, Respon
 public sealed class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IMapper _mapper;
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IUserRepository _userRepository;
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
